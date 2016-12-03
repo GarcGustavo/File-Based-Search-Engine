@@ -164,6 +164,10 @@ public class DocsIDManager {
 		return name;    // returns "" if the name is just spaces
 	}
 	
+	/**
+	 * This small method is used in RequestInformationAction to analyze all registered documents in one go
+	 * @return returns a list of all document names in current manager instance
+	 */
 	public ArrayList<String> getDocNamesList(){
 		return docNamesList;
 	}

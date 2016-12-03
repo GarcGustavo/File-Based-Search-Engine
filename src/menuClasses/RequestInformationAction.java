@@ -27,14 +27,21 @@ public class RequestInformationAction implements Action {
 		if(fName.equalsIgnoreCase("*")){
 			DocsIDManager didm = DocsIDManager.getInstance();
 			ArrayList<String> names = didm.getDocNamesList();
+			//Analyzing every registered file name
 			for(String s : names){
 				io.output("File: " + s + "\nStatus: "+ analizeFile(s) + "\n\n");
 			}
 		}
+		//else is just analyzes the given file name
 		else
 			io.output("File: " + fName + "\nStatus: "+ analizeFile(fName) + "\n\n");
 	}
 	
+	/**
+	 * @param fName string representing name of desired registered file
+	 * @return string representing status of file, UpToDate/OutOfDate/NotAdded
+	 * @throws IOException
+	 */
 	private static String analizeFile(String fName) throws IOException{
 		String result = "yo";
 		DocsIDManager didm = null;
