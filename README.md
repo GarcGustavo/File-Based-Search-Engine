@@ -1,10 +1,17 @@
-# File-Based-Search-Engine
+This is a small search engine made for finding specific words in text files.
+To compile and run this program run these commands using cmd from the project directory:
 
-Small search engine for specific words in documents. Not meant for large
-amounts of files. Run it with cmd from the project folder with:
+[Linux and Windows]
 
-javac -d bin -sourcepath src src/systemClasses/Main.java
+To compile: javac -d bin -sourcepath src src/systemClasses/Main.java
+To run: java -classpath bin systemClasses.Main
 
-java -classpath bin systemClasses.Main
+The program has several functions:
 
-In linux, use equivalent commands based on your OS
+-Adding new documents to a searcheable index
+
+-Removing a document from the index
+
+-Requesting information on status of files in the document directory
+
+-Searching for specific words in documents found in the index directory
