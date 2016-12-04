@@ -4,6 +4,7 @@ To compile and run this program run these commands using cmd from the project di
 [Linux and Windows]
 
 To compile: javac -d bin -sourcepath src src/systemClasses/Main.java
+
 To run: java -classpath bin systemClasses.Main
 
 The program has several functions:
