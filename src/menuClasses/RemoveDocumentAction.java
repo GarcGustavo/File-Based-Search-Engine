@@ -12,36 +12,24 @@ public class RemoveDocumentAction implements Action {
 	private static IOComponent io = IOComponent.getComponent();
 
 	@Override
-	public void execute(Object args) {
-		DocsIDManager didm = null;
-		MainIndexManager mim = null;
-		String fName = ""; 
-		fName = io.getInput("\nPlease Enter File To Remove: \n");
-
-		try {
-			didm = DocsIDManager.getInstance();
-			mim = MainIndexManager.getInstance();
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+	public void execute(Object args) throws IOException {
+		DocsIDManager didm = DocsIDManager.getInstance();
+		MainIndexManager mim = MainIndexManager.getInstance();
+		String fName = io.getInput("\nPlease Enter File To Remove: \n");
 		int id = didm.isRegisteredDoc(fName);
-
-		if(id<=0){
+		
+		if(id<=0)
 			io.output("Index does not exist.");
-
-		}else{
-			String dName = SystemController.makeIDXName(id);
-			File idxFilePath = new File(P3Utils.IndexDirectoryPath, dName); 
-			idxFilePath.delete();
-			didm.removeDocID(id);
-			mim.removeIndex(id);
+		else{
+			//id is a valid removable file
+			String ntd = SystemController.makeIDXName(id); //name of idx file to delete
+			File idxFile = new File(P3Utils.IndexDirectoryPath, ntd); 
+			idxFile.delete(); // removes idx file
+			didm.removeDocID(id); // removes id from map
+			mim.removeIndex(id); // removes index
+			io.output("\n~File has been removed!~\n");
 			didm.close();
 			mim.close();
 		}
-	}
-	public void removeIdx(String fName){	
 	}
 }

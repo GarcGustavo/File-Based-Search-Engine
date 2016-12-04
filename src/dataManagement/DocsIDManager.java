@@ -164,14 +164,6 @@ public class DocsIDManager {
 		return name;    // returns "" if the name is just spaces
 	}
 	
-	/**
-	 * This small method is used to facilitate managing the doc names from other classes
-	 * @return returns a list of all document names in current manager instance
-	 */
-	public ArrayList<String> getDocNamesList(){
-		return docNamesList;
-	}
-	
 	// for testing purposes
 	public void showRegisteredDocs() { 
 		for (int i=0; i< this.docNamesList.size(); i++) { 
@@ -179,15 +171,18 @@ public class DocsIDManager {
 					+ "  ID = " + (i+1) + ")\n");
 		}
 	}
+	/**
+	 * Goes through registered documents until it finds the given file.
+	 * Tracks where it is and returns its id.
+	 * @param fName file name to check
+	 * @return doc id as integer
+	 */
 	public int isRegisteredDoc(String fName) { 
 		int isRegistered = -1;
-		for (int i=0; i< this.docNamesList.size(); i++) { 
-			 if(isRegistered>0) break;
-			 
-			 if(fName.equalsIgnoreCase(docNamesList.get(i))){
-				 isRegistered = i+1;
-			 }
+		for (int i=0; i< this.docNamesList.size(); i++) {  //Loops through list of names
+			 if(fName.equalsIgnoreCase(docNamesList.get(i))) //Compares names to see if its the doc
+				return isRegistered = i+1;
 		}
-		return isRegistered;
+		return isRegistered; //file not found, returns -1
 	}
 }

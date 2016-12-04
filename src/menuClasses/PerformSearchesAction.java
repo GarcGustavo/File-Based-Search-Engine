@@ -30,7 +30,7 @@ public class PerformSearchesAction implements Action {
 			try {
 				StringTokenizer wordsTokens = new StringTokenizer(words); 
 				ArrayList<String> wordsList = constructListOfSearchWords(wordsTokens);
-				searchListSize = wordsList.size();
+				searchListSize = wordsList.size(); //used for ranking formula
 				matchingDocuments = sc.search(wordsList);
 				if (matchingDocuments.isEmpty()) 
 					io.output("No document matches this search.");
@@ -79,7 +79,7 @@ public class PerformSearchesAction implements Action {
 	}
 
 	/**
-	 * 
+	 * Creates an array list sorted by calculated rank
 	 * @param matchingDocuments
 	 * @return List containing documents in non-decreasing order based on frequency rank
 	 * @throws IOException
@@ -89,11 +89,12 @@ public class PerformSearchesAction implements Action {
 		ArrayList<MatchingSearchDocument> rankedDocuments = new ArrayList<>(); 
 		rankComparer cmpRank = new rankComparer(); //custom comparator that compares rank of matching documents
 		
+		//creates an array list with documents
 		for (Entry<Integer, MatchingSearchDocument> e : matchingDocuments.entrySet()){
-			e.getValue().setSearchSize(searchListSize);
+			e.getValue().setSearchSize(searchListSize); //sends size of search terms to document so it can formulate rank
 			rankedDocuments.add(e.getValue());
 		}
-		rankedDocuments.sort(cmpRank);
+		rankedDocuments.sort(cmpRank); //sorts array list by rank
 		return rankedDocuments; 
 	}
 

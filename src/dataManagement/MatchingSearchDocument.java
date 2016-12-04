@@ -1,6 +1,5 @@
 package dataManagement;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -27,14 +26,18 @@ public class MatchingSearchDocument {
 		matchingWords = new ArrayList<>(); 
 		matchingLocations = null; 
 		document = null;
-		//searchSize = 0;
 	}
 
+	/**
+	 * sets internal value representing size of search input terms
+	 * @param size
+	 */
 	public void setSearchSize(float size){
 		searchSize = size;
 	}
 
 	/**
+	 * calculates rank
 	 * @return returns word frequency rank indication relevance to search
 	 */
 	public float getRank(){
