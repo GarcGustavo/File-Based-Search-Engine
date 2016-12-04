@@ -16,3 +16,5 @@ The program has several functions:
 -Requesting information on status of files in the document directory
 
 -Searching for specific words in documents found in the index directory
+
+[PROGRAM ASSUMES YOU'RE USING A BASH SHELL OTHERWISE TEXT MAY LOOK WRONG ON SEARCH RESULTS]
