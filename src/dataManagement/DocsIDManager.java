@@ -165,7 +165,7 @@ public class DocsIDManager {
 	}
 	
 	/**
-	 * This small method is used in RequestInformationAction to analyze all registered documents in one go
+	 * This small method is used to facilitate managing the doc names from other classes
 	 * @return returns a list of all document names in current manager instance
 	 */
 	public ArrayList<String> getDocNamesList(){
@@ -190,5 +190,4 @@ public class DocsIDManager {
 		}
 		return isRegistered;
 	}
-	
 }

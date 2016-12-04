@@ -18,13 +18,13 @@ public class MainIndexManager {
 	private RandomAccessFile file; 
 	private boolean modified;         // to remember if modifications have been made...
 	// needed to writeback to file is needed....
-	
+
 	public static MainIndexManager getInstance() throws IOException { 
 		if (instance == null) 
 			instance = new MainIndexManager(); 
 		return instance; 
 	}
-	
+
 	private MainIndexManager() throws IOException { 
 		modified = false; 
 		map = new Hashtable<>(); 
@@ -84,10 +84,10 @@ public class MainIndexManager {
 		// by the remove operation and the operation that assigned a new
 		// id to a new document; it needs to guarantee no two different
 		// docs are assigned the same id. 
-		
+
 		wordDocsList = map.get(word); 
 		Entry<Integer, Integer> newEntry = new AbstractMap.SimpleEntry<>(docID, frequency); 
-		
+
 		if (wordDocsList == null)  {
 			wordDocsList = new ArrayList<Entry<Integer, Integer>>();
 			wordDocsList.add(newEntry); 
@@ -95,16 +95,16 @@ public class MainIndexManager {
 		}
 		else 
 			wordDocsList.add(newEntry); 
-			
+
 		modified = true; 
 	}
-		
+
 	public Iterable<Entry<Integer, Integer>> getDocsList(String word) { 
 		ArrayList<Entry<Integer, Integer>> wordDocsList; 
 		wordDocsList = map.get(word); 
 		return wordDocsList;          // returns null if the word does not exist in index
 	}
-	
+
 	/**
 	 * Remove the particular instance (if any) of the pair (d, f) for
 	 * the particular word; where d is the docID and f is the frequency
@@ -114,7 +114,7 @@ public class MainIndexManager {
 	 * @throws IllegalArgumentException
 	 */
 	public void removeDocID(String word, int docID) 
-	throws IllegalArgumentException {
+			throws IllegalArgumentException {
 		ArrayList<Entry<Integer, Integer>> wordDocsList; 
 		wordDocsList = map.get(word); 		
 		if (wordDocsList == null) 
@@ -123,14 +123,14 @@ public class MainIndexManager {
 		int docPosIndex = P3Utils.findIndex(wordDocsList, searchEntry);
 		if (docPosIndex == -1) 
 			throw new IllegalArgumentException("Word " + word + " is not register as part of document " + docID); 
-		
+
 		wordDocsList.remove(docPosIndex); 
 		if (wordDocsList.isEmpty()) 
 			map.remove(word); 
-		
+
 		modified = true; 
 	}
-	
+
 	/**
 	 * When the system is about to shutdown, this method needs to be executed to save 
 	 * any modifications made to the main index content while in memory.
@@ -152,7 +152,7 @@ public class MainIndexManager {
 		}
 
 	}
-	
+
 	private void writeToDocsListToFile(ArrayList<Entry<Integer, Integer>> list) throws IOException {
 		for (Entry<Integer, Integer> e : list) { 
 			file.writeInt(e.getKey());
@@ -160,7 +160,17 @@ public class MainIndexManager {
 		}
 		file.writeInt(-1);     // pair (-1, -1) marks the end of the list....
 		file.writeInt(-1);
-		
+
 	}
-	
+
+	public void removeIndex(int id){
+		for(ArrayList<Entry<Integer,Integer>> e : map.values()){
+			for(int i=0;i<e.size();i++){
+				if(e.get(i).getKey() == id){
+					e.remove(i);
+				}
+			}
+		}
+	}
+
 }
